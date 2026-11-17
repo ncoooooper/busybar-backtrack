@@ -1,0 +1,42 @@
+{
+  "format_version": 1,
+  "version": 1,
+  "fields": {
+    "name0": {
+      "type": "string",
+      "label": "Context 1",
+      "default": "Build",
+      "max_length": 20
+    },
+    "next0": {
+      "type": "string",
+      "label": "Next action 1",
+      "default": "Run the next test",
+      "max_length": 72
+    },
+    "name1": {
+      "type": "string",
+      "label": "Context 2",
+      "default": "Review",
+      "max_length": 20
+    },
+    "next1": {
+      "type": "string",
+      "label": "Next action 2",
+      "default": "Read the open change",
+      "max_length": 72
+    },
+    "name2": {
+      "type": "string",
+      "label": "Context 3",
+      "default": "Write",
+      "max_length": 20
+    },
+    "next2": {
+      "type": "string",
+      "label": "Next action 3",
+      "default": "Finish the next paragraph",
+      "max_length": 72
+    }
+  }
+}

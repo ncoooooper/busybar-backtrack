@@ -4,6 +4,6 @@
   "name": "Backtrack",
   "version": "0.1.0",
   "api_version": "27.12.0",
-  "description": "Backtrack",
+  "description": "Bookmark three work contexts with a next action and jump straight back to the latest interruption.",
   "author": "ncoooooper"
 }

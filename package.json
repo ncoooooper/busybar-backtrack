@@ -2,7 +2,7 @@
   "name": "busybar-backtrack",
   "private": true,
   "version": "0.1.0",
-  "description": "Backtrack",
+  "description": "Bookmark three work contexts with a next action and jump straight back to the latest interruption.",
   "author": "ncoooooper",
   "type": "module",
   "scripts": {

@@ -1,66 +1,46 @@
-import { device } from "@shared/device";
-import { column, render, type Node } from "@busy-app/busy-lib";
-import manifest from "./appmeta/manifest.json";
+import {surface,label,panel,read,persist,wrap,mint,amber,report,type Frame,type Key} from "@shared/surface";
+import {loadValues} from "@shared/settings";
 
-/** The name the app draws under; the device clears elements by this id. */
-const APP = manifest.id;
-
-/** How often the screen is redrawn. */
-const TICK_MS = 1000;
-
-const WHITE = "#FFFFFFFF";
-const SUBTLE_WHITE = "#FFFFFF80";
-
-/**
- * The frame drawn on every tick. The screen is 72×16, so two short lines are about all that fits.
- */
-function frame(ticks: number): Node {
-  return column({ justify: "center", align: "center" }, [
-    { type: "text", id: "title", text: "Hello", font: "bold", color: WHITE },
-    {
-      type: "text",
-      id: "ticks",
-      text: String(ticks),
-      font: "small",
-      color: SUBTLE_WHITE,
-    },
-  ]);
+const defaults=[["Build","Run the next test"],["Review","Read the open change"],["Write","Finish the next paragraph"]];
+let contexts=defaults,selected=read("selected",0),ready=false;
+type Bookmark={at:number; next:string; name:string};
+let saved=read<Record<string,Bookmark>>("bookmarks",{}), notice="";
+function words(line:string):string[]{
+ const lines:string[]=[];let rest=line;
+ while(rest&&lines.length<3){let end=rest.length<=26?rest.length:rest.lastIndexOf(" ",26);if(end<=0)end=26;lines.push(rest.slice(0,end));rest=rest.slice(end).trim();}
+ return lines;
 }
-
-/** Sends one frame to the device. */
-async function draw(ticks: number): Promise<void> {
-  const elements = render(frame(ticks));
-  await device.DisplayDraw({ application_name: APP, priority: 50, elements });
+function draw():Frame{
+ const mark=saved[selected], name=mark?.name||contexts[selected][0], next=mark?.next||contexts[selected][1];
+ const age=mark?Math.max(0,Math.floor((Date.now()-mark.at)/60000)):0;
+ return [label("status",mark?"PARKED "+age+"m":"FOCUS "+(selected+1),0,0,mark?amber:mint,"front","tiny"),
+ {id:"name",type:"text",font:"small",text:name,x:0,y:7,width:72,scroll_rate:25},
+ ...panel(name,[mark?"Saved next action:":"Next action:",...words(next),notice||(mark?"Parked "+age+" minutes ago":"Click to park this context"),
+ mark?"Click: resume / Start: latest":"Wheel: context / Start: latest"])];
 }
-
-/**
- * Entry point, called at the end of the file: the device runs this script from top to bottom and starts nothing by itself.
- */
-function main(): void {
-  let ticks = 0;
-  let stopped = false;
-
-  const report = (err: unknown) =>
-    console.error(`${APP}: ${err instanceof Error ? err.message : String(err)}`);
-
-  void draw(ticks).catch(report);
-
-  // Tick errors are reported, not thrown: one failed request must not stop the loop.
-  const timer = setInterval(() => {
-    ticks += 1;
-    void draw(ticks).catch(report);
-  }, TICK_MS);
-
-  // Back leaves the app. Once the timer is cleared and the handler detached, nothing keeps it alive and the device takes the screen back.
-  const unbind = listen("input", (event) => {
-    if (stopped || event.key !== "back" || event.action !== "short") return;
-
-    stopped = true;
-    clearInterval(timer);
-
-    // Not detached from inside the handler itself: with nothing else left the unbind stops the app on the spot, while this handler is still running.
-    setTimeout(unbind, 0);
-  });
+function input(k:Key){
+ if(!ready)return;notice="";
+ if(k==="up"||k==="down")selected=wrap(selected+(k==="up"?1:-1),3);
+ if(k==="start"){
+   const keys=Object.keys(saved).sort((a,b)=>saved[b].at-saved[a].at);
+   if(keys.length)selected=Number(keys[0]);else notice="No parked contexts";
+ }
+ if(k==="ok"){
+   if(saved[selected]){
+      const next=saved[selected].next;delete saved[selected];notice="Resumed";console.log("resumed",selected,next);
+   }else{
+      saved[selected]={at:Date.now(),name:contexts[selected][0],next:contexts[selected][1]};
+      notice="Bookmark saved";console.log("parked",selected,saved[selected].next);
+   }
+   persist("bookmarks",saved);
+ }
+ persist("selected",selected);
 }
-
-main();
+let stopped=false;
+const timer=setInterval(()=>{if(saved[selected])refresh();},60000);
+const refresh=surface(draw,input,()=>{stopped=true;clearInterval(timer);});
+void loadValues().then(v=>{
+ if(stopped)return;
+ contexts=defaults.map(([name,next],i)=>[String(v?.["name"+i]||name),String(v?.["next"+i]||next)]);
+ ready=true;console.log("restored",selected,saved[selected]?.next||"working");refresh();
+}).catch(report);
