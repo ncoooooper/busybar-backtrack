@@ -2,12 +2,40 @@
 
 Bookmark three work contexts with a next action and jump straight back to the latest interruption.
 
-Set three context names and their next actions in app settings, then restart. Turn to a context and click when you are interrupted. The bar snapshots its name, action and time. Press Start to jump to the most recently parked context and click to resume. Existing bookmarks retain the original action even if settings change.
+A bookmark includes the exact next action you meant to take. When someone interrupts a review, parking “Check the empty-list case” saves you from reconstructing which part of the pull request you had reached.
 
-## Run locally
+## Park a task when you are interrupted
 
-From this folder, run `~/.busy-emulator/bin/busy-emulator dev --once` with BUSY Bar Emulator open. Back exits.
+1. Set the three context names and their next actions in app settings, then restart. The defaults cover building, reviewing and writing.
+2. Turn the wheel to the context that is on your desk. Check its next action on the rear display. The recording moves from a parked writing task to **Build**.
+3. Click once to park it. The front changes from **FOCUS** to **PARKED** and starts showing how many minutes have passed.
 
-![BUSY Bar front display](screenshots/front-1.png)
+![A parked Write bookmark gives way to Build in focus.](media/guide/choose-a-context.gif)
 
-[Watch the controls on firmware](media/controls.mp4)
+## Return after a second interruption
+
+1. Press **Start** to select the most recently parked context. If you need an older one, turn the wheel instead.
+2. Read the saved next action on the rear before resuming. The front clip shows the moment **Build** is parked and its age starts at zero.
+3. Click a parked context to resume it and remove that bookmark. Other parked contexts remain available.
+
+![Build switches from FOCUS 1 to PARKED 0m as the bookmark is saved.](media/guide/park-the-build.gif)
+
+## What the bookmark keeps
+
+Each of the three slots stores the name, next action and time together. Suppose you parked **Review** with “Compare the two totals” and later changed that slot’s setting to “Read the next change”. The parked bookmark still contains the first instruction. The new setting applies the next time you park that slot.
+
+The age is reported in whole minutes. Pressing **Start** with no saved bookmarks leaves the current context selected and shows a message on the rear.
+
+## Run in the emulator
+
+Open BUSY Bar Emulator. From this repository, run:
+
+```sh
+~/.busy-emulator/bin/busy-emulator dev --once
+```
+
+Press **Back** to exit.
+
+The GIFs are excerpts from the emulator recording. Each front-display pixel is shown at 9× its original width and height. The end frames pause for reading.
+
+[Full recording](media/controls.mp4) · [Rear display](screenshots/back-1.png) · [Firmware test](EMULATOR-QA.md) · [MIT license](LICENSE)
