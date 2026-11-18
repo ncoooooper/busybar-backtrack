@@ -39,3 +39,14 @@ Press **Back** to exit.
 The GIFs are excerpts from the emulator recording. Each front-display pixel is shown at 9× its original width and height. The end frames pause for reading.
 
 [Full recording](media/controls.mp4) · [Rear display](screenshots/back-1.png) · [Firmware test](EMULATOR-QA.md) · [MIT license](LICENSE)
+
+## Device settings
+
+Open **Apps → Backtrack → Setup**. Save the fields and reopen the app to use the new values.
+
+- **Context 1** (`name0`). Default: `Build`.
+- **Next action 1** (`next0`). Default: `Run the next test`.
+- **Context 2** (`name1`). Default: `Review`.
+- **Next action 2** (`next1`). Default: `Read the open change`.
+- **Context 3** (`name2`). Default: `Write`.
+- **Next action 3** (`next2`). Default: `Finish the next paragraph`.
