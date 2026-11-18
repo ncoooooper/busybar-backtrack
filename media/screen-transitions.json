@@ -1,0 +1,47 @@
+{
+  "app": "busybar-backtrack",
+  "sha256": "7f603c0d628d4abbcb34dacc9ab9ef02a37d97da150ab58ca0485e9aab3f7bd1",
+  "firmware": "1.3.1",
+  "cell": 16,
+  "lit": 14,
+  "front": [
+    72,
+    16
+  ],
+  "rear": [
+    160,
+    80
+  ],
+  "captures": [
+    {
+      "mode": "classic",
+      "guides": [
+        "choose-a-context",
+        "park-the-build"
+      ],
+      "tour": "screen-transitions",
+      "input": [
+        [
+          "up"
+        ],
+        [
+          "ok",
+          "start"
+        ],
+        [
+          "down",
+          "up",
+          "ok"
+        ]
+      ],
+      "distinct_frames": [
+        8,
+        15,
+        40
+      ],
+      "rear_frames": 19,
+      "rear_tour": "screen-transitions-rear",
+      "exit": "finished"
+    }
+  ]
+}

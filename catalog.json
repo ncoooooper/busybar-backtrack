@@ -2,5 +2,5 @@
   "category": "productivity",
   "short_description": "Bookmark three work contexts with a next action and jump straight back to the latest interruption.",
   "description": "Bookmark three work contexts with a next action and jump straight back to the latest interruption. Set three context names and their next actions in app settings, then restart. Turn to a context and click when you are interrupted. The bar snapshots its name, action and time. Press Start to jump to the most recently parked context and click to resume. Existing bookmarks retain the original action even if settings change.",
-  "changelog": "First public version."
+  "changelog": "New screen transitions and high-contrast LED previews."
 }

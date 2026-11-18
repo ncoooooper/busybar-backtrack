@@ -15,7 +15,7 @@
     "media/front.png",
     "media/back.png"
   ],
-  "sha256": "e101533b26a57a1946c91a8883bc36e26c769a1f200174eeee6f6c45d726cbe8",
+  "sha256": "7f603c0d628d4abbcb34dacc9ab9ef02a37d97da150ab58ca0485e9aab3f7bd1",
   "display_test": {
     "firmware": "1.3.1",
     "input": "On-device controls",

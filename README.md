@@ -4,6 +4,20 @@ Bookmark three work contexts with a next action and jump straight back to the la
 
 A bookmark includes the exact next action you meant to take. When someone interrupts a review, parking “Check the empty-list case” saves you from reconstructing which part of the pull request you had reached.
 
+## Screen transitions
+
+Watch the selected task change as you park one activity and return to another.
+
+![Backtrack front display. Watch the selected task change as you park one activity and return to another.](media/guide/screen-transitions.gif)
+
+<details>
+
+<summary>Watch the rear display</summary>
+
+![Backtrack rear display during the recorded controls](media/guide/screen-transitions-rear.gif)
+
+</details>
+
 ## Park a task when you are interrupted
 
 1. Set the three context names and their next actions in app settings, then restart. The defaults cover building, reviewing and writing.
@@ -36,7 +50,7 @@ Open BUSY Bar Emulator. From this repository, run:
 
 Press **Back** to exit.
 
-The GIFs are excerpts from the emulator recording. Each front-display pixel is shown at 9× its original width and height. The end frames pause for reading.
+The GIFs are excerpts from the emulator recording. Each LED occupies a 16 × 16 cell with a black border. The end frames pause for reading.
 
 [Full recording](media/controls.mp4) · [Rear display](screenshots/back-1.png) · [Firmware test](EMULATOR-QA.md) · [MIT license](LICENSE)
 
